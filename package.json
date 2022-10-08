@@ -1,0 +1,40 @@
+{
+  "name": "directory-tree-view",
+  "version": "0.1.2",
+  "description": "",
+  "main": "index.js",
+  "peerdependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AthulSPrakash/directory-tree-view.git"
+  },
+  "keywords": [
+    "react",
+    "react-tree",
+    "react-directory",
+    "tree",
+    "trees",
+    "folder",
+    "folders",
+    "folder-structure",
+    "folder-tree",
+    "folder-view",
+    "directory",
+    "directories",
+    "directory-tree",
+    "directory-structure",
+    "directory-view"
+  ],
+  "author": "Athul S Prakash",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AthulSPrakash/directory-tree-view/issues"
+  },
+  "homepage": "https://github.com/AthulSPrakash/directory-tree-view#readme"
+}
