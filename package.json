@@ -14,23 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/AthulSPrakash/directory-tree-view.git"
   },
-  "keywords": [
-    "react",
-    "react-tree",
-    "react-directory",
-    "tree",
-    "trees",
-    "folder",
-    "folders",
-    "folder-structure",
-    "folder-tree",
-    "folder-view",
-    "directory",
-    "directories",
-    "directory-tree",
-    "directory-structure",
-    "directory-view"
-  ],
+  "keywords": [],
   "author": "Athul S Prakash",
   "license": "MIT",
   "bugs": {
