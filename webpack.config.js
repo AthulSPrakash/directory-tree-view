@@ -1,18 +1,19 @@
 const path = require("path")
 
 module.exports = {
-    entry: "./src/index.ts",
+    entry: path.resolve(__dirname, "src/index.ts"),
     mode: "production",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "index.js",
-        libraryTarget: "umd",
-        library: "directory-tree-view"
+        library: "directory-tree-view",
+        libraryTarget: "umd"
     },
     module: { 
         rules: [
             {
-                test: /\.tsx?/,
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
                 use: ["ts-loader"]
             },
             {
@@ -23,11 +24,9 @@ module.exports = {
                 test: /\.svg$/,
                 use: [
                     {
-                        loader: "file-loader",
+                        loader: "svg-url-loader",
                         options: {
-                            name: "[name].[ext]",
-                            outputPath: "img/",
-                            publicPath: "img/"
+                            limit: 5000
                         }
                     }
                 ]
@@ -38,6 +37,6 @@ module.exports = {
         react: "react"
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".css"]
+        extensions: [".ts", ".tsx"]
     }
 }

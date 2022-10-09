@@ -1,6 +1,6 @@
 import React from 'react'
 import TreeView from './treeView'
-import './styles/style'
+import './styles/style.css'
 
 interface TreeData {
     id: number | string,

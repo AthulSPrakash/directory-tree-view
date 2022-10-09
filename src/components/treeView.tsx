@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import arrow from './img/arrow.svg'
 import Style from './styles/style'
 
 interface NodePropProps {
@@ -30,7 +31,12 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
             <React.Fragment key={new Date().valueOf()}>
                 <span key={data.id} style={Style.nodeWrapper}>
                     <span style={Style.arrowBoxWidth} onClick={() => openFolder(data)}>
-                        <img id={`${data.id}+arrow`} style={data.isOpen ? Style.arrowDown : Style.arrowRight} src={`./img/arrow.svg`} alt="icon" />
+                        <img 
+                            id={`${data.id}+arrow`} 
+                            style={data.isOpen ? Style.arrowDown : Style.arrowRight} 
+                            src={arrow} 
+                            alt="arrow" 
+                        />
                     </span>
                     <li
                         key={data.id}
@@ -39,7 +45,7 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
                     >
                         <span style={Style.iconBoxWidth}>
                             <img
-                                src={`./img/folder-${skin && skin==='solid' ? 'solid' : 'regular'}.svg`}
+                                src={require(`./img/folder-${skin && skin==='solid' ? 'solid' : 'regular'}.svg`)}
                                 alt="icon"
                                 style={Style.icon}
                             />
@@ -61,9 +67,9 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
                                     >
                                         <span style={Style.iconBoxWidth}>
                                             <img
-                                                src={`./img/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`}
-                                                alt="icon"
+                                                src={require(`./img/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`)}
                                                 style={Style.icon}
+                                                alt="icon"
                                             />
                                         </span>
                                         <span className="node-name-capitalize" style={Style.nodeText} >{i.name}</span>
