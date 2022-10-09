@@ -1,12 +1,15 @@
-.tree-dir-open {
+.tree-dir-open-folder {
     display: block !important;
 }
-.tree-dir-close {
-    display: none !important;
+.tree-dir-close-folder {
+    display: none;
 }
 .tree-arrow-rotate-right {
-    transform: rotate(90deg) !important;
+    transform: rotate(90deg);
 }
 .tree-arrow-rotate-left {
     transform: rotate(0deg) !important;
+}
+.node-name-capitalize::first-letter{
+    text-transform: capitalize;
 }

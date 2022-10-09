@@ -16,8 +16,8 @@ const style = {
         'cursor': 'default',
         'padding': '0.125em 0',
         'display': 'flex',
-        'alignItems': 'flex- end',
-        'gap': '0.25em',
+        'alignItems': 'flex-end',
+        'gap': '0.35em',
     },
     icon: {
         'height': '20px',
@@ -34,7 +34,7 @@ const style = {
     },
     nodeText: {
         'lineHeight': '23px',
-        'textTransform': 'capitalize',
+        'display': 'inline-block',
     },
     arrowBoxWidth: {
         'width': '19px',

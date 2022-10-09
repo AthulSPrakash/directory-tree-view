@@ -6,12 +6,19 @@ const directory = ({ treeData, onNodeClick, skin }) => {
         const dir = document.getElementById(`${folder.id}+dir`)
         const arrow = document.getElementById(`${folder.id}+arrow`)
         if (folder.isOpen) { // Close
-            dir.classList.toggle('tree-dir-close')
-            arrow.classList.toggle('tree-arrow-rotate-left')
+            dir.classList.remove('tree-dir-open-folder')
+            arrow.classList.remove('tree-arrow-rotate-right')
+            dir.classList.add('tree-dir-close-folder')
+            arrow.classList.add('tree-arrow-rotate-left')
         } else {    // Open
-            dir.classList.toggle('tree-dir-open')
-            arrow.classList.toggle('tree-arrow-rotate-right')
+            dir.classList.remove('tree-dir-close-folder')
+            arrow.classList.remove('tree-arrow-rotate-left')
+            dir.classList.add('tree-dir-open-folder')
+            arrow.classList.add('tree-arrow-rotate-right')
         }
+        folder.isOpen = !folder.isOpen
+        //console.log(folder)
+        //console.log(treeData)
     }
     return (
         <Tree

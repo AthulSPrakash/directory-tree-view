@@ -33,7 +33,7 @@ export const DirectoryTreeView = ({ treeData, onNameClick, openFolder, skin }) =
                                 style={Style.icon}
                             />
                         </span>
-                        <span style={Style.nodeText}>{data.name}</span>
+                        <span className="node-name-capitalize" style={Style.nodeText}>{data.name}</span>
                     </li>
                 </span>
                 <ul id={`${data.id}+dir`} key={`${data.id}+dir`} style={data.isOpen ? Style.listStyle : Style.listStyle2}>
@@ -55,7 +55,7 @@ export const DirectoryTreeView = ({ treeData, onNameClick, openFolder, skin }) =
                                                 style={Style.icon}
                                             />
                                         </span>
-                                        <span style={Style.nodeText} >{i.name}</span>
+                                        <span className="node-name-capitalize" style={Style.nodeText} >{i.name}</span>
                                     </li>
                                 </span>
                             )
