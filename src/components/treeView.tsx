@@ -41,16 +41,21 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
                     <li
                         key={data.id}
                         style={Style.nodeStyle}
-                        onClick={e => onNameClick(e.target, data)}
                     >
-                        <span style={Style.iconBoxWidth}>
+                        <span onClick={e => onNameClick(e.target, data)} style={Style.iconBoxWidth}>
                             <img
                                 src={require(`./img/folder-${skin && skin==='solid' ? 'solid' : 'regular'}.svg`)}
                                 alt="icon"
                                 style={Style.icon}
                             />
                         </span>
-                        <span className="node-name-capitalize" style={Style.nodeText}>{data.name}</span>
+                        <span 
+                            onClick={e => onNameClick(e.target, data)}
+                            className="node-name-capitalize" 
+                            style={Style.nodeText}
+                        >
+                            {data.name}
+                        </span>
                     </li>
                 </span>
                 <ul id={`${data.id}+dir`} key={`${data.id}+dir`} style={data.isOpen ? Style.listStyle : Style.listStyle2}>
@@ -61,18 +66,21 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
                             const fileType = checkFileType(i.props?.fileType)
                             return (
                                 <span key={i.id}>
-                                    <li
-                                        style={Style.nodeStyle}
-                                        onClick={e => onNameClick(e.target, i)}
-                                    >
-                                        <span style={Style.iconBoxWidth}>
+                                    <li style={Style.nodeStyle}>
+                                        <span onClick={e => onNameClick(e.target, i)} style={Style.iconBoxWidth}>
                                             <img
                                                 src={require(`./img/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`)}
                                                 style={Style.icon}
                                                 alt="icon"
                                             />
                                         </span>
-                                        <span className="node-name-capitalize" style={Style.nodeText} >{i.name}</span>
+                                        <span 
+                                            onClick={e => onNameClick(e.target, i)} 
+                                            className="node-name-capitalize" 
+                                            style={Style.nodeText} 
+                                        >
+                                            {i.name}
+                                        </span>
                                     </li>
                                 </span>
                             )
