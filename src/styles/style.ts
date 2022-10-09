@@ -1,4 +1,8 @@
-const style = {
+interface StyleProps {
+    [key: string]: React.CSSProperties
+}
+
+const style: StyleProps = {
     listStyle: {
         'padding': '0 0 0 1em',
     },

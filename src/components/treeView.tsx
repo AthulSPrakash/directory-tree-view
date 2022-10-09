@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react'
-import arrow from './assets/arrow.svg'
-import Style from './style.js'
+import arrow from '../assets/arrow.svg'
+import Style from '../styles/style'
 
-export const DirectoryTreeView = ({ treeData, onNameClick, openFolder, skin }) => {
-    const [tree, setTree] = useState([])
-    const fileTypes = ['audio', 'video', 'image', 'pdf', 'word', 'excel', 'script']
 
-    const checkFileType = fileType => {
-        if (fileType && typeof fileType == 'string') {
+interface NodePropProps {
+    [key: string]: any
+}
+
+interface nodeProps {
+    id: number | string,
+    name: string,
+    children?: object[]
+    props?: NodePropProps,
+    isOpen?: boolean
+}
+
+const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
+    const [tree, setTree] = useState<JSX.Element>()
+    const fileTypes: string[] = ['audio', 'video', 'image', 'pdf', 'word', 'excel', 'script']
+
+    const checkFileType = (fileType: string) => {
+        if (fileType) {
             if (fileTypes.includes(fileType.toLowerCase())) {
                 return fileType.toLowerCase()
             } else return 'file'
         } else return 'file'
     }
 
-    const renderTree = data => {
+    const renderTree = (data: any) => {
         return (
             <React.Fragment key={new Date().valueOf()}>
                 <span key={data.id} style={Style.nodeWrapper}>
@@ -28,7 +41,7 @@ export const DirectoryTreeView = ({ treeData, onNameClick, openFolder, skin }) =
                     >
                         <span style={Style.iconBoxWidth}>
                             <img
-                                src={require(`./assets/folder-${skin && skin==='solid' ? 'solid' : 'regular'}.svg`)}
+                                src={require(`../assets/folder-${skin && skin==='solid' ? 'solid' : 'regular'}.svg`)}
                                 alt="icon"
                                 style={Style.icon}
                             />
@@ -37,11 +50,11 @@ export const DirectoryTreeView = ({ treeData, onNameClick, openFolder, skin }) =
                     </li>
                 </span>
                 <ul id={`${data.id}+dir`} key={`${data.id}+dir`} style={data.isOpen ? Style.listStyle : Style.listStyle2}>
-                    {data.children.map(i => {
+                    {data.children.map((i: nodeProps) => {
                         if (i.children) {   // Folder
                             return renderTree(i)
                         } else {    // File
-                            const fileType = checkFileType(i.props.fileType)
+                            const fileType = checkFileType(i.props?.fileType)
                             return (
                                 <span key={i.id}>
                                     <li
@@ -50,7 +63,7 @@ export const DirectoryTreeView = ({ treeData, onNameClick, openFolder, skin }) =
                                     >
                                         <span style={Style.iconBoxWidth}>
                                             <img
-                                                src={require(`./assets/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`)}
+                                                src={require(`../assets/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`)}
                                                 alt="icon"
                                                 style={Style.icon}
                                             />
@@ -67,7 +80,7 @@ export const DirectoryTreeView = ({ treeData, onNameClick, openFolder, skin }) =
     }
 
     useEffect(() => {
-        const tempTree = renderTree(treeData)
+        const tempTree:JSX.Element = renderTree(treeData)
         setTree(tempTree)
         // eslint-disable-next-line
     }, [])
@@ -79,4 +92,4 @@ export const DirectoryTreeView = ({ treeData, onNameClick, openFolder, skin }) =
     )
 }
 
-export default DirectoryTreeView
+export default TreeView

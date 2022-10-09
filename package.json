@@ -1,14 +1,15 @@
 {
   "name": "directory-tree-view",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
-  "main": "index.js",
-  "peerdependencies": {
+  "main": "dist/index.js",
+  "peerDependencies": {
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,18 @@
   "bugs": {
     "url": "https://github.com/AthulSPrakash/directory-tree.git"
   },
-  "homepage": "https://github.com/AthulSPrakash/directory-tree.git#readme"
+  "homepage": "https://github.com/AthulSPrakash/directory-tree.git#readme",
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "files": [
+    "./dist"
+  ]
 }
