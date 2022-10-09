@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import arrow from '../assets/arrow.svg'
-import Style from '../styles/style'
-
+import Style from './styles/style'
 
 interface NodePropProps {
     [key: string]: any
@@ -16,7 +14,7 @@ interface nodeProps {
 }
 
 const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
-    const [tree, setTree] = useState<JSX.Element>()
+    const [tree, setTree] = useState()
     const fileTypes: string[] = ['audio', 'video', 'image', 'pdf', 'word', 'excel', 'script']
 
     const checkFileType = (fileType: string) => {
@@ -32,7 +30,7 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
             <React.Fragment key={new Date().valueOf()}>
                 <span key={data.id} style={Style.nodeWrapper}>
                     <span style={Style.arrowBoxWidth} onClick={() => openFolder(data)}>
-                        <img id={`${data.id}+arrow`} style={data.isOpen ? Style.arrowDown : Style.arrowRight} src={arrow} alt="icon" />
+                        <img id={`${data.id}+arrow`} style={data.isOpen ? Style.arrowDown : Style.arrowRight} src={`./img/arrow.svg`} alt="icon" />
                     </span>
                     <li
                         key={data.id}
@@ -41,7 +39,7 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
                     >
                         <span style={Style.iconBoxWidth}>
                             <img
-                                src={require(`../assets/folder-${skin && skin==='solid' ? 'solid' : 'regular'}.svg`)}
+                                src={`./img/folder-${skin && skin==='solid' ? 'solid' : 'regular'}.svg`}
                                 alt="icon"
                                 style={Style.icon}
                             />
@@ -63,7 +61,7 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
                                     >
                                         <span style={Style.iconBoxWidth}>
                                             <img
-                                                src={require(`../assets/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`)}
+                                                src={`./img/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`}
                                                 alt="icon"
                                                 style={Style.icon}
                                             />
@@ -80,7 +78,7 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
     }
 
     useEffect(() => {
-        const tempTree:JSX.Element = renderTree(treeData)
+        const tempTree:any = renderTree(treeData)
         setTree(tempTree)
         // eslint-disable-next-line
     }, [])

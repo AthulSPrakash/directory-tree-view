@@ -1,2 +1,3 @@
 import DirectoryTree from './components/directoryTree'
-export { DirectoryTree }
+
+export default DirectoryTree
