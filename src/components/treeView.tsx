@@ -15,9 +15,9 @@ interface nodeProps {
 }
 
 const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
-    const [tree, setTree] = useState()
+    const [tree, setTree] = useState<JSX.Element>()
     const fileTypes: string[] = ['audio', 'video', 'image', 'pdf', 'word', 'excel', 'script']
-
+    console.log('treeView')
     const checkFileType = (fileType: string) => {
         if (fileType) {
             if (fileTypes.includes(fileType.toLowerCase())) {
@@ -30,7 +30,7 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
         return (
             <React.Fragment key={new Date().valueOf()}>
                 <span key={data.id} style={Style.nodeWrapper}>
-                    <span style={Style.arrowBoxWidth} onClick={() => openFolder(data)}>
+                    <span style={Style.arrowBoxWidth} onClick={(e: any) => openFolder(e, data)}>
                         <img 
                             id={`${data.id}+arrow`} 
                             style={data.isOpen ? Style.arrowDown : Style.arrowRight} 
@@ -40,20 +40,17 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
                     </span>
                     <li
                         key={data.id}
+                        onClick={(e: any) => onNameClick(e, data)}
                         style={Style.nodeStyle}
                     >
-                        <span onClick={e => onNameClick(e.target, data)} style={Style.iconBoxWidth}>
+                        <span style={Style.iconBoxWidth}>
                             <img
-                                src={require(`./img/folder-${skin && skin==='solid' ? 'solid' : 'regular'}.svg`)}
+                                src={require(`./img/folder-${data.isOpen ? 'open-' : '' }${skin && skin==='solid' ? 'solid' : 'regular'}.svg`)}
                                 alt="icon"
                                 style={Style.icon}
                             />
                         </span>
-                        <span 
-                            onClick={e => onNameClick(e.target, data)}
-                            className="node-name-capitalize" 
-                            style={Style.nodeText}
-                        >
+                        <span className="node-name-capitalize" style={Style.nodeText}>
                             {data.name}
                         </span>
                     </li>
@@ -66,19 +63,15 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
                             const fileType = checkFileType(i.props?.fileType)
                             return (
                                 <span key={i.id}>
-                                    <li style={Style.nodeStyle}>
-                                        <span onClick={e => onNameClick(e.target, i)} style={Style.iconBoxWidth}>
+                                    <li onClick={(e: any) => onNameClick(e, i)} style={Style.nodeStyle}>
+                                        <span style={Style.iconBoxWidth}>
                                             <img
                                                 src={require(`./img/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`)}
                                                 style={Style.icon}
                                                 alt="icon"
                                             />
                                         </span>
-                                        <span 
-                                            onClick={e => onNameClick(e.target, i)} 
-                                            className="node-name-capitalize" 
-                                            style={Style.nodeText} 
-                                        >
+                                        <span className="node-name-capitalize" style={Style.nodeText}>
                                             {i.name}
                                         </span>
                                     </li>
@@ -92,13 +85,13 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin }:any) => {
     }
 
     useEffect(() => {
-        const tempTree:any = renderTree(treeData)
+        const tempTree:JSX.Element = renderTree(treeData)
         setTree(tempTree)
         // eslint-disable-next-line
     }, [])
 
     return (
-        <ul style={Style.listStyle}>
+        <ul style={Style.paddingLeft}>
             {tree}
         </ul>
     )
