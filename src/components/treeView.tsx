@@ -14,7 +14,7 @@ interface nodeProps {
     isOpen?: boolean
 }
 
-const TreeView = ({ treeData, onNameClick, openFolder, skin, openNodeMenu }:any) => {
+const TreeView = ({ treeData, onNameClick, openFolder, skin, nodeMenuBtn, openNodeMenu }:any) => {
     const fileTypes: string[] = ['audio', 'video', 'image', 'pdf', 'word', 'excel', 'script']
     console.log('treeView')
     const checkFileType = (fileType: string) => {
@@ -47,9 +47,11 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin, openNodeMenu }:any)
                         <span onClick={(e: any) => onNameClick(e, data)} className="node-name-capitalize" style={Style.nodeText}>
                             {data.name}
                         </span>
-                        <button id={`${data._id}+dots`} onClick={() => openNodeMenu()} style={Style.dots}>
-                            <img height={20} src={require('./img/dots-h.svg')}/>
-                        </button>
+                        {nodeMenuBtn===false ? null : 
+                            <button id={`${data._id}+dots`} onClick={() => openNodeMenu()} style={Style.dots}>
+                                <img width={20} src={require('./img/dots-h.svg')}/>
+                            </button>
+                        }
                     </li>
                 </span>
                 <ul id={`${data._id}+dir`} key={`${data._id}+dir`} style={data.isOpen ? Style.listStyle : Style.listStyle2}>
@@ -70,9 +72,11 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin, openNodeMenu }:any)
                                         <span onClick={(e: any) => onNameClick(e, i)} className="node-name-capitalize" style={Style.nodeText}>
                                             {i.name}
                                         </span>
-                                        <button id={`${i._id}+dots`} onClick={() => openNodeMenu()} style={Style.dots}>
-                                            <img height={20} src={require('./img/dots-h.svg')}/>
-                                        </button>
+                                        {nodeMenuBtn===false ? null : 
+                                            <button id={`${i._id}+dots`} onClick={() => openNodeMenu()} style={Style.dots}>
+                                                <img width={20} src={require('./img/dots-h.svg')}/>
+                                            </button>
+                                        }
                                     </li>
                                 </span>
                             )

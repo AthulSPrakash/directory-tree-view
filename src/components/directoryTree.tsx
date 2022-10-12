@@ -14,6 +14,7 @@ interface Props {
     treeData: TreeData,
     onNodeClick?: any,
     skin?: string,
+    nodeMenuBtn?: boolean
 }
 
 interface NodeDataProps {
@@ -25,7 +26,7 @@ interface NodeDataProps {
     [key: string]: any
 }
 
-const DirectoryTree = ({ treeData, onNodeClick, skin }: Props) => {
+const DirectoryTree = ({ treeData, onNodeClick, skin, nodeMenuBtn }: Props) => {
 
     const openFolder = (event: React.ChangeEvent<HTMLInputElement>, folder: TreeData) => {
         const dir = document.getElementById(`${folder._id}+dir`)!
@@ -48,15 +49,16 @@ const DirectoryTree = ({ treeData, onNodeClick, skin }: Props) => {
     }
     console.log('directoryTree')
     const onNameClick = (event: React.ChangeEvent<HTMLInputElement>, data:NodeDataProps) => {
-        // Close open 3 dots btns
-        const openDots = document.getElementsByClassName('tree-dir-open-dots')
-        for(let i=0; i<openDots.length; i++){
-            openDots[i].classList.remove('tree-dir-open-dots')
+        if(nodeMenuBtn!==false){
+            // Close open 3 dots btns
+            const openDots = document.getElementsByClassName('tree-dir-open-dots')
+            for(let i=0; i<openDots.length; i++){
+                openDots[i].classList.remove('tree-dir-open-dots')
+            }
+            // Open 3 dots btn
+            const dots = document.getElementById(`${data._id}+dots`)!
+            dots.classList.toggle('tree-dir-open-dots')
         }
-        // Open 3 dots btn
-        const dots = document.getElementById(`${data._id}+dots`)!
-        dots.classList.toggle('tree-dir-open-dots')
-
         onNodeClick({
             nodeData: data,
             nodeElement: event.target.parentElement?.children[1] as HTMLInputElement,
@@ -74,6 +76,7 @@ const DirectoryTree = ({ treeData, onNodeClick, skin }: Props) => {
             onNameClick={onNameClick}
             openFolder={openFolder}
             skin={skin}
+            nodeMenuBtn={nodeMenuBtn}
             openNodeMenu={openNodeMenu}
         />
     )
