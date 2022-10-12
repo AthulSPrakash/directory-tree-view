@@ -21,13 +21,13 @@ const style: StyleProps = {
     nodeStyle: {
         listStyleType: 'none',
         cursor: 'default',
-        padding: '0.125em 0',
+        padding: '0.15em 0',
         display: 'flex',
-        alignItems: 'flex-end',
         gap: '0.35em',
         width: 'fit-content'
     },
     icon: {
+        width: '20px',
         height: '20px',
     },
     arrowRight: {
@@ -41,18 +41,24 @@ const style: StyleProps = {
     },
     iconBoxWidth: {
         width: '23px',
-        pointerEvents: 'none'
     },
     nodeText: {
         lineHeight: '23px',
         display: 'inline-block',
-        pointerEvents: 'none'
     },
     arrowBoxWidth: {
         width: '19px',
         position: 'absolute',
         left: '-18px',
     },
+    dots: {
+        padding: 0,
+        marginLeft: '1em',
+        border: 'none',
+        boxShadow: 'none',
+        background: 'none',
+        display: 'none',
+    }
 }
 
 export default style

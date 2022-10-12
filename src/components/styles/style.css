@@ -13,3 +13,6 @@
 .node-name-capitalize::first-letter{
     text-transform: capitalize;
 }
+.tree-dir-open-dots{
+    display: flex !important;
+}
