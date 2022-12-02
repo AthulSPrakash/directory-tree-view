@@ -14,5 +14,8 @@
     text-transform: capitalize;
 }
 .tree-dir-open-dots{
+    visibility: visible !important;
+}
+.node-option-model{
     display: flex !important;
 }

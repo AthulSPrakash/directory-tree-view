@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import arrow from './img/arrow.svg'
 import Style from './styles/style'
 
@@ -14,7 +14,7 @@ interface nodeProps {
     isOpen?: boolean
 }
 
-const TreeView = ({ treeData, onNameClick, openFolder, skin, nodeMenuBtn, openNodeMenu }:any) => {
+const TreeView = ({ treeData, onNameClick, openFolder, skin, color, nodeMenuBtn, openNodeMenu, bgColor }:any) => {
     const fileTypes: string[] = ['audio', 'video', 'image', 'pdf', 'word', 'excel', 'script']
     console.log('treeView')
     const checkFileType = (fileType: string) => {
@@ -40,17 +40,31 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin, nodeMenuBtn, openNo
                     <li style={Style.nodeStyle}>
                         <img
                             onClick={(e: any) => onNameClick(e, data)}
+                            data-id={data._id}
                             src={require(`./img/folder-${data.isOpen ? 'open-' : '' }${skin && skin==='solid' ? 'solid' : 'regular'}.svg`)}
                             alt="icon"
                             style={Style.icon}
                         />
-                        <span onClick={(e: any) => onNameClick(e, data)} className="node-name-capitalize" style={Style.nodeText}>
+                        <span 
+                            onClick={(e: any) => onNameClick(e, data)} 
+                            data-id={data._id}
+                            className="node-name-capitalize" 
+                            style={Style.nodeText}
+                        >
                             {data.name}
                         </span>
-                        {nodeMenuBtn===false ? null : 
-                            <button id={`${data._id}+dots`} onClick={() => openNodeMenu()} style={Style.dots}>
-                                <img width={20} src={require('./img/dots-h.svg')}/>
-                            </button>
+                        {nodeMenuBtn===false ? null :
+                            <> 
+                                <button 
+                                    id={`${data._id}+dots`}
+                                    data-id={data._id}
+                                    onClick={() => openNodeMenu(data)} 
+                                    style={Style.dots}
+                                >
+                                    <img width={20} src={require('./img/dots-h.svg')}/>
+                                </button>
+                                <div id={`${data._id}-nodeOptions`} style={Style.options}></div>
+                            </>
                         }
                     </li>
                 </span>
@@ -60,22 +74,37 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin, nodeMenuBtn, openNo
                             return renderTree(i)
                         } else {    // File
                             const fileType = checkFileType(i.props?.fileType)
+                            Style.options.backgroundColor = bgColor && bgColor.length ? bgColor : 'white'
                             return (
                                 <span key={i._id}>
                                     <li style={Style.nodeStyle}>
                                         <img
                                             onClick={(e: any) => onNameClick(e, i)}
+                                            data-id={i._id}
                                             src={require(`./img/${fileType}-${skin && skin === 'solid' ? 'solid' : 'regular'}.svg`)}
                                             style={Style.icon}
                                             alt="icon"
                                         />
-                                        <span onClick={(e: any) => onNameClick(e, i)} className="node-name-capitalize" style={Style.nodeText}>
+                                        <span 
+                                            onClick={(e: any) => onNameClick(e, i)}
+                                            data-id={i._id} 
+                                            className="node-name-capitalize" 
+                                            style={Style.nodeText}
+                                        >
                                             {i.name}
                                         </span>
-                                        {nodeMenuBtn===false ? null : 
-                                            <button id={`${i._id}+dots`} onClick={() => openNodeMenu()} style={Style.dots}>
-                                                <img width={20} src={require('./img/dots-h.svg')}/>
-                                            </button>
+                                        {nodeMenuBtn===false ? null :
+                                            <> 
+                                                <button 
+                                                    id={`${i._id}+dots`}
+                                                    data-id={i._id}
+                                                    onClick={() => openNodeMenu(i)}
+                                                    style={Style.dots}
+                                                >
+                                                    <img width={20} src={require('./img/dots-h.svg')}/>
+                                                </button>
+                                                <div id={`${i._id}-nodeOptions`} style={Style.options}></div>
+                                            </>
                                         }
                                     </li>
                                 </span>
@@ -86,9 +115,9 @@ const TreeView = ({ treeData, onNameClick, openFolder, skin, nodeMenuBtn, openNo
             </React.Fragment>
         )
     }
-
+    Style.tree.backgroundColor = bgColor && bgColor.length ? bgColor : 'white'
     return (
-        <ul style={Style.paddingLeft}>
+        <ul style={Style.tree}>
             {renderTree(treeData)}
         </ul>
     )

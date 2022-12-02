@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TreeView from './treeView'
 import './styles/style.css'
 
@@ -14,6 +14,8 @@ interface Props {
     treeData: TreeData,
     onNodeClick?: any,
     skin?: string,
+    color?: string,
+    bgColor?: string,
     nodeMenuBtn?: boolean
 }
 
@@ -26,8 +28,9 @@ interface NodeDataProps {
     [key: string]: any
 }
 
-const DirectoryTree = ({ treeData, onNodeClick, skin, nodeMenuBtn }: Props) => {
-
+const DirectoryTree = ({ treeData, onNodeClick, skin, color, nodeMenuBtn, bgColor }: Props) => {
+    const nodeOptions = ['rename', 'delete', 'properties']
+    
     const openFolder = (event: React.ChangeEvent<HTMLInputElement>, folder: TreeData) => {
         const dir = document.getElementById(`${folder._id}+dir`)!
         const arrow = document.getElementById(`${folder._id}+arrow`)!
@@ -49,25 +52,32 @@ const DirectoryTree = ({ treeData, onNodeClick, skin, nodeMenuBtn }: Props) => {
     }
     console.log('directoryTree')
     const onNameClick = (event: React.ChangeEvent<HTMLInputElement>, data:NodeDataProps) => {
+        for(let i of document.querySelectorAll('.node-option-model')){   // Close open options
+            if(i instanceof HTMLElement) i.classList.remove('node-option-model')
+        }
         if(nodeMenuBtn!==false){
-            // Close open 3 dots btns
-            const openDots = document.getElementsByClassName('tree-dir-open-dots')
-            for(let i=0; i<openDots.length; i++){
-                openDots[i].classList.remove('tree-dir-open-dots')
+            for(let i of document.querySelectorAll('.tree-dir-open-dots')){   // Close open 3 dots btns
+                if(i instanceof HTMLElement && Number(i.dataset.id)!==data._id) i.classList.remove('tree-dir-open-dots')
             }
-            // Open 3 dots btn
-            const dots = document.getElementById(`${data._id}+dots`)!
-            dots.classList.toggle('tree-dir-open-dots')
+            document.getElementById(`${data._id}+dots`)!.classList.toggle('tree-dir-open-dots') // Open 3 dots btn
         }
         onNodeClick({
             nodeData: data,
-            nodeElement: event.target.parentElement?.children[1] as HTMLInputElement,
+            nodeElement: event.target.parentElement as HTMLInputElement,
         })
     }
 
-    const openNodeMenu = () => {
-        // To-Do
-        console.log('Menu')
+    const openNodeMenu = (node: any) => {
+        for(let i of document.querySelectorAll('.node-option-model')){   // Close open options
+            if(i instanceof HTMLElement && Number(i.dataset.id)!==node._id) i.classList.remove('node-option-model')
+        }
+        const model = document.getElementById(`${node._id}-nodeOptions`)!
+        if(node.children){
+            model.innerHTML = `<option value="newfolder" style="text-transform: capitalize">New Folder</option>
+                <option value="newfile" style="text-transform: capitalize">New File</option>`
+            model.innerHTML += nodeOptions.map((i: string) => `<option value="${i}" style="text-transform: capitalize">${i}</option>`).join('')
+        }else model.innerHTML = nodeOptions.map((i: string) => `<option value="${i}" style="text-transform: capitalize">${i}</option>`).join('')
+        model.classList.toggle('node-option-model')
     }
 
     return (
@@ -76,6 +86,8 @@ const DirectoryTree = ({ treeData, onNodeClick, skin, nodeMenuBtn }: Props) => {
             onNameClick={onNameClick}
             openFolder={openFolder}
             skin={skin}
+            color={color}
+            bgColor={bgColor}
             nodeMenuBtn={nodeMenuBtn}
             openNodeMenu={openNodeMenu}
         />

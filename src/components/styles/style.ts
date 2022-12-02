@@ -3,7 +3,7 @@ interface StyleProps {
 }
 
 const style: StyleProps = {
-    paddingLeft: {
+    tree: {
         padding: '0 0 0 1.2em',
     },
     listStyle: {
@@ -24,7 +24,8 @@ const style: StyleProps = {
         padding: '0.15em 0',
         display: 'flex',
         gap: '0.35em',
-        width: 'fit-content'
+        width: 'fit-content',
+        position: 'relative',
     },
     icon: {
         width: '20px',
@@ -57,7 +58,20 @@ const style: StyleProps = {
         border: 'none',
         boxShadow: 'none',
         background: 'none',
+        visibility: 'hidden',
+    },
+    options: {
         display: 'none',
+        flexDirection: 'column',
+        position: 'absolute',
+        right: 0,
+        top: '100%',
+        background: 'red',
+        padding: '0.5em',
+        gap: '0.25em',
+        borderRadius: '3px',
+        border: '1.5px solid rgba(0,0,0,0.5)',
+        zIndex: 1
     }
 }
 
